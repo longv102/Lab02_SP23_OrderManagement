@@ -10,17 +10,17 @@ import data.Customer;
 import data.Order;
 import data.Product;
 import interfaces.OrderDao;
-import ui.SubMenu;
 import util.Tools;
+import ui.Menu;
 
 public class OrderDaoImpl implements OrderDao {
     // Declaration
     private List<Order> orders = new ArrayList<>();
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private String fileName = "Orders.txt";
     private List<Customer> customers = getCustomersFromFile();
     private List<Product> products = getProductsFromFile();
-
+    //Return the position of an order in the list
     private int searchAnOrderById(String orderId) {
         if (orders.isEmpty())
             return -1;
@@ -30,7 +30,7 @@ public class OrderDaoImpl implements OrderDao {
         }
         return -1;
     }
-
+    //Return the information of an order in the list
     private Order searchAnOrderObjectById(String orderId) {
         if (orders.isEmpty())
             return null;
@@ -105,9 +105,9 @@ public class OrderDaoImpl implements OrderDao {
         String customerId;
         String response;
         int quantity, pos;
-        int choice_01, choice_02;
+        int choice01, choice02;
         List<String> tmp = new ArrayList<>();
-
+        
         do {
             do {
                 orderId = Tools.getStringFormat("Enter the id[Dxxx]: ",
@@ -118,32 +118,32 @@ public class OrderDaoImpl implements OrderDao {
             } while (pos != -1);
             System.out.println("Here is the list of customers");
             //submenu for choosing a customer's id
-            SubMenu subMenu_01 = new SubMenu();
+            Menu subMenu01 = new Menu();
             for (int i = 0; i < customers.size(); i++) {
-                subMenu_01.addNewOption(i + 1 + ". " + customers.get(i).toString());
+                subMenu01.addNewOption(i + 1 + ". " + customers.get(i).toString());
             }
             //display the submenu and get user input to have a customer's id
-            subMenu_01.printMenu();
+            subMenu01.printMenu();
             System.out.println("Enter a number to choose a customer's id");
-            choice_01 = subMenu_01.getUserChoice();
-            customerId = customers.get(choice_01 - 1).getId();
+            choice01 = subMenu01.getUserChoice();
+            customerId = customers.get(choice01 - 1).getId();
             //submenu for choosing a product's id
             System.out.println("Here is the list of products");
-            SubMenu subMenu_02 = new SubMenu();
+            Menu subMenu02 = new Menu();
             for (int i = 0; i < products.size(); i++) {
-                subMenu_02.addNewOption(i + 1 + ". " + products.get(i).toString());
+                subMenu02.addNewOption(i + 1 + ". " + products.get(i).toString());
             }
             //display the submenu and get user input to have a product's id
-            subMenu_02.printMenu();
+            subMenu02.printMenu();
             System.out.println("Enter a number to choose a product's id");
-            choice_02 = subMenu_02.getUserChoice();
-            productId = products.get(choice_02 - 1).getId();
-            // Regex for checking valid date. The format: m/d/yy and mm/dd/yyyy
-            date = Tools.getStringFormat("Enter the date: ", "This field is required!",
+            choice02 = subMenu02.getUserChoice();
+            productId = products.get(choice02 - 1).getId();
+            date = Tools.getStringFormat("Enter the date: ", 
+                    "The format of the date is m/d/yy AND mm/dd/yyyy",
                     "^(1[0-2]|0?[1-9])/(3[01]|[12][0-9]|0?[1-9])/(?:[0-9]{2})?[0-9]{2}$");
             
             do {
-                quantity = Tools.getAnInteger("Enter the quantity: ", "This field is required!");
+                quantity = Tools.getAnInteger("Enter the quantity: ", "The quantity must be a positive integer!");
             } while (quantity <= 0);
 
             do {
@@ -218,7 +218,7 @@ public class OrderDaoImpl implements OrderDao {
             System.out.println("Here is the order's information before updated");
             x.showProfile();
             //submenu for update the order
-            SubMenu subMenu = new SubMenu();
+            Menu subMenu = new Menu();
             subMenu.addNewOption("  1. Update an order's information");
             subMenu.addNewOption("  2. Delete an order");
             subMenu.addNewOption("  3. Quit");
@@ -273,8 +273,7 @@ public class OrderDaoImpl implements OrderDao {
             // Save to file
             for (Order ord : orders) {
                 tmp.add(ord.getId() + "," + ord.getCustomerId() + "," + ord.getProductId() + "," + ord.getQuantity()
-                        + ","
-                        + ord.getDate() + "," + ord.getStatus());
+                        + "," + ord.getDate() + "," + ord.getStatus());
             }
             Tools.writeListToFile(fileName, tmp);
         }
@@ -286,6 +285,5 @@ public class OrderDaoImpl implements OrderDao {
     //     tc.displayOrdersAscendingByCusName();
     //     tc.displayPendingOrders();
     //     tc.updateOrder();
-
     // }
 }

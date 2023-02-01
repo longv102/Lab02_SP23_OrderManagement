@@ -13,8 +13,8 @@ public class ProductDaoImpl implements ProductDao {
 
     private List<Product> products = new ArrayList<>();
     private String fileName = "Products.txt";
-    private Scanner sc = new Scanner(System.in);
-
+    private final Scanner sc = new Scanner(System.in);
+    //load the data from the Products.txt
     public ProductDaoImpl() {
         products = getProductsFromFile(fileName);
     }
@@ -26,11 +26,11 @@ public class ProductDaoImpl implements ProductDao {
         double price;
         int pos;
         List<String> tmp = new ArrayList<>();
-
+        //Input validation
         do {
             id = Tools.getStringFormat("Enter the id[Pxxx]: ",
                     "The format of the id is Pxxx (x stands for a digit)", "^C\\d{3}$");
-            pos = searchABookByID(id);
+            pos = searchAProductByID(id);
             if (pos >= 0) {
                 System.out.println("The id has already existed! Please enter the another id!");
             }
@@ -59,8 +59,8 @@ public class ProductDaoImpl implements ProductDao {
 
         id = Tools.getStringFormat("Enter the id[Pxxx]: ",
                 "The format of the id is Pxxx (x stands for a digit)", "^C\\d{3}$");
-        pos = searchABookByID(id);
-        x = searchABookObjectByID(id);
+        pos = searchAProductByID(id);
+        x = searchAProductObjectByID(id);
 
         if (pos == -1)
             System.out.println("The product is not found!");
@@ -79,15 +79,14 @@ public class ProductDaoImpl implements ProductDao {
 
         id = Tools.getStringFormat("Enter the id[Pxxx]: ",
                 "The format of the id is Pxxx (x stands for a digit)", "^C\\d{3}$");
-        x = searchABookObjectByID(id);
-        pos = searchABookByID(id);
+        x = searchAProductObjectByID(id);
+        pos = searchAProductByID(id);
 
         if (pos == -1)
             System.out.println("The product does not exist!");
         else {
             System.out.println("Here is the product before removed");
             x.showProfile();
-
             System.out.println("Do you want to remove[Y/N]: ");
             String response = sc.nextLine().toUpperCase();
             if (response.startsWith("Y")) {
@@ -105,12 +104,14 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void displayProducts() {
+        if (products.isEmpty())
+            System.out.println("The list is empty");
         for (Product x : products) {
             x.showProfile();
         }
     }
-
-    private int searchABookByID(String id) {
+    //Return the position of a product in the list
+    private int searchAProductByID(String id) {
         if (products.isEmpty())
             return -1;
         for (int i = 0; i < products.size(); i++) {
@@ -119,8 +120,8 @@ public class ProductDaoImpl implements ProductDao {
         }
         return -1;
     }
-
-    private Product searchABookObjectByID(String id) {
+    //Return the information of a product in the list
+    private Product searchAProductObjectByID(String id) {
         if (products.isEmpty())
             return null;
         for (int i = 0; i < products.size(); i++) {

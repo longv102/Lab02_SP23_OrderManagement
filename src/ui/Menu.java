@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import util.Tools;
 
 public class Menu {
-    private String menuTitle;
     private ArrayList<String> optionList = new ArrayList<>();
 
-    public Menu(String menuTitle) {
-        this.menuTitle = menuTitle;
-    }
+    public Menu() {}
     
     public void addNewOption(String newOption) {
         int pos = find(newOption);
@@ -36,11 +33,11 @@ public class Menu {
             System.out.println("There is no item in the menu");
             return;
         }
-        System.out.println("\n------------------------------------------------------------------------------------------------------------");
-        System.out.println("Welcome to " + menuTitle);
+        System.out.println("\n===============================WELCOME TO ORDER MANAGEMENT APP=========================================");
         for (String x : optionList) {
             System.out.println(x);
         }
+        System.out.println("========================================================================================================");
     }
 
     public int getUserChoice() {

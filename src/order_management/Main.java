@@ -10,12 +10,13 @@ import ui.Menu;
 
 public class Main {
     public static void main(String[] args) {
+        //Delcaration
         CustomerDao customer = new CustomerDaoImpl();
         OrderDao order = new OrderDaoImpl();
         ProductDao product = new ProductDaoImpl();
         int choice;
 
-        Menu menu = new Menu("Order Management App");
+        Menu menu = new Menu();
         menu.addNewOption("1. List all Products");
         menu.addNewOption("2. List all Customers");
         menu.addNewOption("3. Search a customer based on his/her ID");
@@ -76,5 +77,4 @@ public class Main {
             }
         } while (choice != 10);
     }
-
 }

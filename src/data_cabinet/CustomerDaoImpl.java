@@ -12,9 +12,9 @@ import util.Tools;
 public class CustomerDaoImpl implements CustomerDao {
 
     private List<Customer> customers = new ArrayList<>();
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private String fileName = "Customers.txt";
-
+    //Return the position of a customer in the list
     private int searchACustomer(String id) {
         if (customers.isEmpty())
             return -1;
@@ -24,7 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         return -1;
     }
-
+    //Return the information of a customer based on his/her id
     private Customer searchACustomerObject(String id) {
         if (customers.isEmpty())
             return null;
@@ -50,7 +50,7 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         return customerList;
     }
-
+    //load the data from the Customers.txt
     public CustomerDaoImpl() {
         customers = getCustomersFromFile(fileName);
     }
@@ -62,7 +62,7 @@ public class CustomerDaoImpl implements CustomerDao {
         String address, phoneNumber, response;
         int pos;
         List<String> tmp = new ArrayList<>();
-
+        //Input validation
         do {
             do {
                 id = Tools.getStringFormat("Enter the id[Cxxx]: ",
