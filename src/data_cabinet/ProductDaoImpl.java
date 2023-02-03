@@ -130,7 +130,7 @@ public class ProductDaoImpl implements ProductDao {
         }
         return null;
     }
-
+    
     private List<Product> getProductsFromFile(String fName) {
         List<Product> productList = new ArrayList<>();
         List<String> tmp = Tools.readLineFromFile(fName);

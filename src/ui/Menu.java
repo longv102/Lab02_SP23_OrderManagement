@@ -33,11 +33,11 @@ public class Menu {
             System.out.println("There is no item in the menu");
             return;
         }
-        System.out.println("\n===============================WELCOME TO ORDER MANAGEMENT APP=========================================");
+        System.out.println("\n==========================================WELCOME TO ORDER MANAGEMENT APP==========================================");
         for (String x : optionList) {
             System.out.println(x);
         }
-        System.out.println("========================================================================================================");
+        System.out.println("===================================================================================================================");
     }
 
     public int getUserChoice() {

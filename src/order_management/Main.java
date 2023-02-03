@@ -17,16 +17,16 @@ public class Main {
         int choice;
 
         Menu menu = new Menu();
-        menu.addNewOption("1. List all Products");
-        menu.addNewOption("2. List all Customers");
-        menu.addNewOption("3. Search a customer based on his/her ID");
-        menu.addNewOption("4. Add a customer");
-        menu.addNewOption("5. Update a customer");
-        menu.addNewOption("6. List all orders in ascending order of customer name");
-        menu.addNewOption("7. List all pending orders");
-        menu.addNewOption("8. Add an order");
-        menu.addNewOption("9. Update an order");
-        menu.addNewOption("10. Quit");
+        menu.addNewOption("|1. List all Products                                                                                            |");
+        menu.addNewOption("|2. List all Customers                                                                                           |");
+        menu.addNewOption("|3. Search a customer based on his/her ID                                                                        |");
+        menu.addNewOption("|4. Add a customer                                                                                               |");
+        menu.addNewOption("|5. Update a customer                                                                                            |");
+        menu.addNewOption("|6. List all orders in ascending order of customer name                                                          |");
+        menu.addNewOption("|7. List all pending orders                                                                                      |");
+        menu.addNewOption("|8. Add an order                                                                                                 |");
+        menu.addNewOption("|9. Update an order                                                                                              |");
+        menu.addNewOption("|10. Quit                                                                                                        |");
 
         do {
             menu.printMenu();
