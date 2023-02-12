@@ -1,12 +1,12 @@
-package data_cabinet;
+package dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import data.Customer;
-import interfaces.CustomerDao;
+import crud.CustomerDao;
+import dto.Customer;
 import util.Tools;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -14,42 +14,7 @@ public class CustomerDaoImpl implements CustomerDao {
     private List<Customer> customers = new ArrayList<>();
     private final Scanner sc = new Scanner(System.in);
     private String fileName = "Customers.txt";
-    //Return the position of a customer in the list
-    private int searchACustomer(String id) {
-        if (customers.isEmpty())
-            return -1;
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getId().equalsIgnoreCase(id))
-                return i;
-        }
-        return -1;
-    }
-    //Return the information of a customer based on his/her id
-    private Customer searchACustomerObject(String id) {
-        if (customers.isEmpty())
-            return null;
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getId().equalsIgnoreCase(id))
-                return customers.get(i);
-        }
-        return null;
-    }
-
-    private List<Customer> getCustomersFromFile(String fName) {
-        List<String> tmp = Tools.readLineFromFile(fName);
-        List<Customer> customerList = new ArrayList<>();
-
-        for (String x : tmp) {
-            StringTokenizer stk = new StringTokenizer(x, ",");
-            String id = stk.nextToken();
-            String name = stk.nextToken();
-            String address = stk.nextToken();
-            String phoneNumber = stk.nextToken();
-
-            customerList.add(new Customer(id, name, address, phoneNumber));
-        }
-        return customerList;
-    }
+    
     //load the data from the Customers.txt
     public CustomerDaoImpl() {
         customers = getCustomersFromFile(fileName);
@@ -163,38 +128,44 @@ public class CustomerDaoImpl implements CustomerDao {
         }
     }
 
-    @Override
-    public void removeACustomer() {
-        String id;
-        int pos;
-        Customer x;
-        List<String> tmp = new ArrayList<>();
-
-        id = Tools.getStringFormat("Enter the customer's id[Cxxx]: ",
-                "The format of the id is Cxxx (X stands for a digit)", "^C\\d{3}$");
-        pos = searchACustomer(id);
-        x = searchACustomerObject(id);
-
-        if (pos == -1)
-            System.out.println("The customer does not exist!");
-        else {
-            System.out.println("Here is the customer before removed");
-            x.showProfile();
-            System.out.print("Continue to remove[Y/N]: ");
-            String response = sc.nextLine().toUpperCase();
-            if (response.startsWith("Y")) {
-                customers.remove(pos);
-                System.out.println("The customer is removed successfully!");
-            } else
-                System.out.println("The customer is not removed!");
+    // Return the position of a customer in the list
+    // -1: not found
+    private int searchACustomer(String id) {
+        if (customers.isEmpty())
+            return -1;
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getId().equalsIgnoreCase(id))
+                return i;
         }
-        //Save to file
-        for (Customer cus : customers) {
-            tmp.add(cus.getId() + "," + cus.getName() + "," + cus.getAddress() + "," + cus.getPhoneNumber());
-        }
-        Tools.writeListToFile(fileName, tmp);
+        return -1;
     }
 
+    // Return the information of a customer based on his/her id
+    private Customer searchACustomerObject(String id) {
+        if (customers.isEmpty())
+            return null;
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getId().equalsIgnoreCase(id))
+                return customers.get(i);
+        }
+        return null;
+    }
+
+    private List<Customer> getCustomersFromFile(String fName) {
+        List<String> tmp = Tools.readLineFromFile(fName);
+        List<Customer> customerList = new ArrayList<>();
+
+        for (String x : tmp) {
+            StringTokenizer stk = new StringTokenizer(x, ",");
+            String id = stk.nextToken();
+            String name = stk.nextToken();
+            String address = stk.nextToken();
+            String phoneNumber = stk.nextToken();
+
+            customerList.add(new Customer(id, name, address, phoneNumber));
+        }
+        return customerList;
+    }
     // public static void main(String[] args) {
     //     CustomerDaoImpl tc = new CustomerDaoImpl();
     //     tc.displayCustomers();
@@ -203,5 +174,4 @@ public class CustomerDaoImpl implements CustomerDao {
     //     tc.searchACustomerByID();
     //     tc.removeACustomer();
     // }
-
 }

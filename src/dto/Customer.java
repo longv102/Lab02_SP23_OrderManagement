@@ -1,4 +1,4 @@
-package data;
+package dto;
 
 public class Customer implements Comparable<Customer> {
     private String id;

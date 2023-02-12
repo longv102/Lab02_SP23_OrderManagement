@@ -1,11 +1,12 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import util.Tools;
 
 public class Menu {
-    private ArrayList<String> optionList = new ArrayList<>();
+    private List<String> optionList = new ArrayList<>();
 
     public Menu() {}
     
@@ -33,7 +34,6 @@ public class Menu {
             System.out.println("There is no item in the menu");
             return;
         }
-        System.out.println("\n==========================================WELCOME TO ORDER MANAGEMENT APP==========================================");
         for (String x : optionList) {
             System.out.println(x);
         }

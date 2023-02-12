@@ -1,4 +1,4 @@
-package interfaces;
+package crud;
 
 public interface OrderDao {
     void addAOrder();

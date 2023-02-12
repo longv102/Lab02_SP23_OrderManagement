@@ -1,4 +1,4 @@
-package data_cabinet;
+package dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import data.Customer;
-import data.Order;
-import data.Product;
-import interfaces.OrderDao;
+import crud.OrderDao;
+import dto.Customer;
+import dto.Order;
+import dto.Product;
 import util.Tools;
 import ui.Menu;
 

@@ -1,12 +1,12 @@
-package data_cabinet;
+package dao;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import data.Product;
-import interfaces.ProductDao;
+import crud.ProductDao;
+import dto.Product;
 import util.Tools;
 
 public class ProductDaoImpl implements ProductDao {
@@ -19,8 +19,7 @@ public class ProductDaoImpl implements ProductDao {
         products = getProductsFromFile(fileName);
     }
 
-    @Override
-    public void addAProduct() {
+    private void addAProduct() {
         //Declaration
         String id, name, unit, origin;
         double price;
@@ -49,57 +48,6 @@ public class ProductDaoImpl implements ProductDao {
                     + pro.getPrice());
         }
         Tools.writeListToFile(fileName, tmp);
-    }
-
-    @Override
-    public void searchAProduct() {
-        String id;
-        Product x;
-        int pos;
-
-        id = Tools.getStringFormat("Enter the id[Pxxx]: ",
-                "The format of the id is Pxxx (x stands for a digit)", "^C\\d{3}$");
-        pos = searchAProductByID(id);
-        x = searchAProductObjectByID(id);
-
-        if (pos == -1)
-            System.out.println("The product is not found!");
-        else {
-            System.out.println("This is the product that you have searched");
-            x.showProfile();
-        }
-    }
-
-    @Override
-    public void removeAProduct() {
-        String id;
-        Product x;
-        int pos;
-        List<String> tmp = new ArrayList<>();
-
-        id = Tools.getStringFormat("Enter the id[Pxxx]: ",
-                "The format of the id is Pxxx (x stands for a digit)", "^C\\d{3}$");
-        x = searchAProductObjectByID(id);
-        pos = searchAProductByID(id);
-
-        if (pos == -1)
-            System.out.println("The product does not exist!");
-        else {
-            System.out.println("Here is the product before removed");
-            x.showProfile();
-            System.out.println("Do you want to remove[Y/N]: ");
-            String response = sc.nextLine().toUpperCase();
-            if (response.startsWith("Y")) {
-                products.remove(pos);
-                System.out.println("The product is removed successfully!");
-            } else
-                System.out.println("The product is not removed!");
-        }
-        //Save to file
-        for (Product pro : products) {
-            tmp.add(pro.getId() + "," + pro.getName() + "," + pro.getUnit() + "," + pro.getOrigin() + ","
-                    + pro.getPrice());
-        }
     }
 
     @Override
